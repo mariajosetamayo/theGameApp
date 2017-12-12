@@ -28,7 +28,7 @@ class Signup extends Component {
   }
 
   render () {
-    console.log('THIS IS THE STATE', state)
+    // console.log('THIS IS THE STATE', state)
     const { handleSubmit, fields: { username, email, password, passwordConfirm}} = this.props;
     return (
       <div onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
@@ -92,7 +92,8 @@ function validate(formProps) {
 }
 
 function mapStateToProps(state){
-  return { errorMessage: state.auth.error }
+  console.log('this is the state', state)
+  return { errorMessage: state.auth.error };
 }
 
 export default reduxForm({
