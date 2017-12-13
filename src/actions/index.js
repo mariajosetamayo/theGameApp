@@ -14,7 +14,7 @@ export function signinUser({username, password}){
           type: AUTH_USER
         });
         localStorage.setItem('token', response.data.token);
-        browserHistory.push('/feature');
+        browserHistory.push('/home');
       })
       .catch(() => {
         dispatch(authError('Bad login info'));
@@ -32,10 +32,10 @@ export function signupUser({username, email, password}){
           type: AUTH_USER
         });
         localStorage.setItem('token', response.data.token);
-        browserHistory.push('/feature');
+        browserHistory.push('/home');
         // browserHistory.push('/feature');
       })
-      .catch( response => dispatch(authError(response.data.error)));
+      .catch( response => dispatch(authError('User already exists')));
   }
 }
 
@@ -50,5 +50,16 @@ export function signoutUser() {
   localStorage.removeItem('token');
   return {
     type: UNAUTH_USER
+  }
+}
+
+export function fetchMessage() {
+  return function(dispatch) {
+    axios.get(ROOT_URL, {
+      headers: {authorization: localStorage.getItem('token')}
+    })
+    .then(response => {
+      console.log(response);
+    })
   }
 }
