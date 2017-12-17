@@ -76,12 +76,12 @@ export function createStage(stage) {
       {name: stage.name, content: stage.content, instructions: stage.instructions, answer: stage.answer},
       authorizationHeaders)
     .then(response => {
-      console.log('this is the repsonse for create stage', response)
+      // console.log('this is the repsonse for create stage', response)
       dispatch({
         type: FETCHED_STAGE_DETAILS,
         payload: response.data
       });
-      browserHistory.push('/stage');
+      browserHistory.push('/stage/' + response.data.name);
     })
   }
 }

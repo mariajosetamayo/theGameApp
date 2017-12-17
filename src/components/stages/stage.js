@@ -2,28 +2,34 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../../actions';
 
+import StageDetails from './stageDetails';
+
 
 export class Stage extends Component {
 
   componentWillMount() {
     this.props.dispatch(
-      actions.fetchStageDetails(this.props.stage.name)
+      actions.fetchStageDetails(this.props.params.name)
     )
   }
+
   render() {
+    console.log('these are the params', this.props.params.name)
     const containerStyle={
       marginTop: '15%'
     }
+    const emptyObject={
+      name: '',
+      content: '',
+      instructions: '',
+      answer: '',
+      requirements: '',
+      percentageDeductionPerWrongAnswer: '',
+      timeUntilOneTenthDeduction: ''
+    }
     return (
       <div style={containerStyle} className='jumbotron'>
-        <h2>Here is a summary of the stage you just created</h2>
-        <h3>Stage: {this.props.savedStage.name}</h3>
-        <p>Contents: {this.props.savedStage.content}</p>
-        <p>Instructions: {this.props.savedStage.instructions}</p>
-        <p>Answer: {this.props.savedStage.answer}</p>
-        <p>Requirements: {this.props.savedStage.requirements}</p>
-        <p>Percentage deduction per worng answer: {this.props.savedStage.percentageDeductionPerWrongAnswer}</p>
-        <p>Time until deduction: {this.props.savedStage.timeUntilOneTenthDeduction}</p>
+        <StageDetails stageDetails={this.props.savedStage === undefined ? emptyObject : this.props.savedStage}/>
         <button className='btn btn-success'>Edit</button>
       </div>
     );

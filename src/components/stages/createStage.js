@@ -14,13 +14,14 @@ export class CreateStage extends Component {
     this.onCreateStageClick = this.onCreateStageClick.bind(this);
   }
 
+
   onCreateStageClick (e){
     e.preventDefault();
     if(!this.stageName.value || !this.stageContent.value || this.stageInstructions.value || this.stageAnswer.value){
       this.setState({
         error: true
       })
-    } 
+    }
     const stage = {
       name: this.stageName.value,
       content: this.stageContent.value,

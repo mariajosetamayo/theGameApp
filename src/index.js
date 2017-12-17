@@ -40,7 +40,7 @@ ReactDOM.render(
         <Route path='play-game' component={RequireAuth(PlayGame)} />
         <Route path='create-stage' component={RequireAuth(CreateStage)} />
         <Route path='create-game' component={RequireAuth(CreateGame)} />
-        <Route path='stage' component={RequireAuth(Stage)} />
+        <Route path='stage/:name' component={RequireAuth(Stage)} />
       </Route>
     </Router>
   </Provider>
