@@ -1,0 +1,65 @@
+.nav-link{
+  color: white;
+  font-size: 17px;
+}
+
+.navBar{
+  background-color: #272727;
+  color: white;
+  margin-bottom: 0% !important;
+}
+
+.navbar-brand{
+  font-family: 'Permanent Marker', sans-serif;
+  color: white !important;
+  font-size: 30px !important;
+}
+
+.nav-link:hover {
+    background-color: transparent !important;
+    color: white !important;
+}
+
+.nav-link:active, .nav-link:focus{
+  background-color: transparent !important;
+}
+
+.accountLinks{
+  margin-left: 78%;
+}
+
+
+
+.error{
+  color: red;
+}
+
+.site-wrapper{
+  padding-top: 50px;
+}
+
+.gallery-size{
+
+  width:100%;
+}
+.gallery {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+	}
+
+	.gallery-text {
+	  color: white;
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    height: 30%;
+    width: 50%;
+    margin: -15% 0 0 -25%;
+    text-shadow: #282828 2px 2px 2px;
+	}
+
+  a{
+    color: #FFF !important;
+  }

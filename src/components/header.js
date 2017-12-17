@@ -10,24 +10,31 @@ class Header extends Component {
       </li>
     } else {
       return [
-        <li className='nav-item' key={1}>
+        <li className='nav-item pull-right' key={1}>
           <Link className='nav-link' to='/signin'>Sign in</Link>
         </li>,
-        <li className='nav-item' key={2}>
+        <li className='nav-item pull-right' key={2}>
           <Link className='nav-link' to='/signup'>Sign up</Link>
         </li>
       ]
     }
   }
-  render () {
+  
+  render(){
     return (
-      <nav className='navbar navbar-light'>
-        <Link to='/' className='navbar-brand'>Game</Link>
-        <ul className='nav navbar-nav'>
-          {this.renderLinks()}
-        </ul>
+      <nav className = "navbar navbar-fixed-top navbar-toggleable-md navBar">
+        <div className = "container-fluid">
+          <div className="navbar-header">
+            <Link to= "/" className="navbar-brand logo">Game</Link>
+          </div>
+         <div>
+            <ul className="nav navbar-nav pull-right accountLinks">
+              {this.renderLinks()}
+            </ul>
+          </div>
+        </div>
       </nav>
-    )
+    );
   }
 }
 

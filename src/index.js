@@ -12,6 +12,9 @@ import Home from './components/home';
 import Signout from './components/auth/signout';
 import RequireAuth from './components/auth/require_auth';
 import Welcome from './components/welcome';
+import PlayGame from './components/playGame';
+import CreateStage from './components/stages/createStage';
+import CreateGame from './components/games/createGame';
 import reducers from './reducers';
 import { AUTH_USER } from './actions/types';
 
@@ -33,6 +36,9 @@ ReactDOM.render(
         <Route path='signup' component={Signup} />
         <Route path='signout' component={Signout} />
         <Route path='home' component={RequireAuth(Home)} />
+        <Route path='play-game' component={RequireAuth(PlayGame)} />
+        <Route path='create-stage' component={RequireAuth(CreateStage)} />
+        <Route path='create-game' component={RequireAuth(CreateGame)} />
       </Route>
     </Router>
   </Provider>

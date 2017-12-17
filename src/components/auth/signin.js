@@ -29,11 +29,20 @@ class Signin extends Component {
   }
 
   render() {
+    const formContainerStyle={
+      marginTop: '20%',
+      width: '50%',
+      margin: '0 auto'
+    }
+
+    const formStyle={
+      marginTop:'30%'
+    }
     const { handleSubmit, fields: { username, password }} = this.props;
       console.log(this.props)
     return (
-      <div>
-        <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+      <div style={formContainerStyle}>
+        <form style={formStyle} onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
         <fieldset className="form-group">
           <label>Username</label>
           <Field

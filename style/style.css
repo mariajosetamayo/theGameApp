@@ -1,3 +1,29 @@
 .error{
   color: red;
 }
+
+.nav-link{
+  color: white;
+  font-size: 17px;
+}
+
+.navBar{
+  background-color: #272727;
+  color: white;
+  /* margin-bottom: 0% !important; */
+}
+
+.navbar-brand{
+  /* font-family: 'Permanent Marker', sans-serif; */
+  color: white !important;
+  font-size: 20px !important;
+}
+
+.nav-link:hover {
+    background-color: transparent !important;
+    color: white !important;
+}
+
+.nav-link:active, .nav-link:focus{
+  background-color: transparent !important;
+}

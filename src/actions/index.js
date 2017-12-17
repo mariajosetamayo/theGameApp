@@ -63,3 +63,15 @@ export function fetchMessage() {
     })
   }
 }
+
+export function createStage(name, content, instructions, answer) {
+  const authorizationHeaders= {headers: {authorization: localStorage.getItem('token')}}
+  return function(dispatch) {
+    axios.post(`${ROOT_URL}/createStage`,
+      {name, content, instructions, answer},
+      authorizationHeaders)
+    .then(response => {
+      console.log('this is the repsonse for create stage', response)
+    })
+  }
+}
