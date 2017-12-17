@@ -1,6 +1,7 @@
 import {
   STORE_STAGE_DETAILS,
-  FETCHED_STAGE_DETAILS
+  FETCHED_STAGE_DETAILS,
+  FETCH_STAGE_DETAILS
 } from '../actions/types';
 
 export default function(state = {}, action) {
@@ -11,6 +12,8 @@ export default function(state = {}, action) {
         requirements: action.payload.requirements, percentageDeductionPerWrongAnswer: action.payload.percentageDeductionPerWrongAnswer}}
     case FETCHED_STAGE_DETAILS:
       return {...state, createdStage: action.payload}
+    case FETCH_STAGE_DETAILS:
+      return {...state, stage: action.payload}
   }
 
   return state;

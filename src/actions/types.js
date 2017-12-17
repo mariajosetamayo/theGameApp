@@ -13,3 +13,4 @@ export const FETCH_MESSAGE = 'fetch_message';
 export const STORE_STAGE_DETAILS =  'store_stage_details';
 export const FETCHED_STAGE_DETAILS = 'fetched_stage_details';
 export const CREATE_STAGE = 'create_stage';
+export const FETCH_STAGE_DETAILS = 'fetch_stage_details';

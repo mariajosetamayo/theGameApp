@@ -1,7 +1,12 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
 
-import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, STORE_STAGE_DETAILS, FETCHED_STAGE_DETAILS } from './types';
+import {AUTH_USER,
+        AUTH_ERROR,
+        UNAUTH_USER,
+        STORE_STAGE_DETAILS,
+        FETCHED_STAGE_DETAILS,
+        FETCH_STAGE_DETAILS} from './types';
 
 const ROOT_URL = 'http://localhost:1515'
 
@@ -76,7 +81,7 @@ export function createStage(stage) {
         type: FETCHED_STAGE_DETAILS,
         payload: response.data
       });
-      browserHistory.push('/home');
+      browserHistory.push('/stage');
     })
   }
 }
@@ -90,5 +95,22 @@ export function storeStageDetails(stageValues) {
       timeUntilOneTenthDeduction: stageValues.timeUntilOneTenthDeduction,
       requirements: stageValues.requirements, percentageDeductionPerWrongAnswer: stageValues.percentageDeductionPerWrongAnswer
     }
+  }
+}
+
+export function fetchStageDetails(name) {
+  console.log('calling action to fetch stage', name)
+  const authorizationHeaders= {headers: {authorization: localStorage.getItem('token')}}
+  return function(dispatch) {
+    axios.get(`${ROOT_URL}/readStage/` + name, {
+      headers: { authorization: localStorage.getItem('token')}
+    })
+    .then(response => {
+      console.log('this is the repsonse for create stage', response)
+      dispatch({
+        type: FETCH_STAGE_DETAILS,
+        payload: response.data
+      });
+    })
   }
 }
