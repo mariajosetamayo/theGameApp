@@ -10,4 +10,6 @@ export const FETCH_MESSAGE = 'fetch_message';
 
 // Stage types
 
+export const STORE_STAGE_DETAILS =  'store_stage_details';
+export const FETCHED_STAGE_DETAILS = 'fetched_stage_details';
 export const CREATE_STAGE = 'create_stage';

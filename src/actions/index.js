@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
 
-import { AUTH_USER, AUTH_ERROR, UNAUTH_USER } from './types';
+import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, STORE_STAGE_DETAILS, FETCHED_STAGE_DETAILS } from './types';
 
 const ROOT_URL = 'http://localhost:1515'
 
@@ -64,14 +64,31 @@ export function fetchMessage() {
   }
 }
 
-export function createStage(name, content, instructions, answer) {
+export function createStage(stage) {
   const authorizationHeaders= {headers: {authorization: localStorage.getItem('token')}}
   return function(dispatch) {
     axios.post(`${ROOT_URL}/createStage`,
-      {name, content, instructions, answer},
+      {name: stage.name, content: stage.content, instructions: stage.instructions, answer: stage.answer},
       authorizationHeaders)
     .then(response => {
       console.log('this is the repsonse for create stage', response)
+      dispatch({
+        type: FETCHED_STAGE_DETAILS,
+        payload: response.data
+      });
+      browserHistory.push('/home');
     })
+  }
+}
+
+export function storeStageDetails(stageValues) {
+  console.log('this is what we are getting in action to store details', stageValues)
+  return {
+    type: STORE_STAGE_DETAILS,
+    payload: {name: stageValues.name, content: stageValues.content,
+      instructions: stageValues.instructions, answer: stageValues.answer,
+      timeUntilOneTenthDeduction: stageValues.timeUntilOneTenthDeduction,
+      requirements: stageValues.requirements, percentageDeductionPerWrongAnswer: stageValues.percentageDeductionPerWrongAnswer
+    }
   }
 }
