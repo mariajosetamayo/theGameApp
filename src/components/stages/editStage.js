@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import * as actions from '../../actions';
 
 import RequiredStageFields from './requiredFields';
+import Hint from './hint';
 
 export class EditStage extends Component {
 
@@ -27,10 +28,17 @@ export class EditStage extends Component {
       percentageDeductionPerWrongAnswer: '',
       timeUntilOneTenthDeduction: ''
     }
+
+    const emptyId={
+      _id: ''
+    }
     return (
-      <form style={formStyles}>
-        <RequiredStageFields params={this.props.params.name} stageDetails={this.props.savedStage === undefined ? emptyObject : this.props.savedStage} />
-      </form>
+      <div>
+        <form style={formStyles}>
+          <RequiredStageFields params={this.props.params.name} stageDetails={this.props.savedStage === undefined ? emptyObject : this.props.savedStage} />
+        </form>
+        <Hint stageId={this.props.savedStage === undefined ? emptyId : this.props.savedStage._id}/>
+      </div>
     );
   }
 }

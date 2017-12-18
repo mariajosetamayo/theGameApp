@@ -35,6 +35,9 @@ export class Home extends Component {
             <Link to='/create-stage'>
               <button style={buttonsStyle}>Create Stage</button>
             </Link>
+            <Link to='/all-stages'>
+              <button style={buttonsStyle}>See my stages</button>
+            </Link>
           </div>
         </div>
       </div>

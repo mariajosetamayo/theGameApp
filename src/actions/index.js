@@ -119,7 +119,6 @@ export function fetchStageDetails(name) {
 }
 
 export function editStageDetails(name, updatedDetails) {
-  console.log('calling action to edit stage', name)
   const authorizationHeaders= {headers: {authorization: localStorage.getItem('token')}}
   return function(dispatch) {
     axios.put(`${ROOT_URL}/updateStage/` + name,
@@ -129,12 +128,20 @@ export function editStageDetails(name, updatedDetails) {
         authorizationHeaders
     )
     .then(response => {
-      console.log('this is the repsonse for edit stage', response)
       browserHistory.push('/home');
-      // dispatch({
-      //   type: EDIT_STAGE_DETAILS,
-      //   payload: response.data
-      // });
+    })
+  }
+}
+
+export function createHint(hint){
+  const authorizationHeaders= {headers: {authorization: localStorage.getItem('token')}}
+  return function(dispatch) {
+    axios.post(`${ROOT_URL}/createHint`,
+      {text: hint.text, percentDeductionIfUsed: hint.percentDeductionIfUsed, stage: hint.stage},
+        authorizationHeaders
+    )
+    .then(response => {
+      console.log('this is the response from hint', response)
     })
   }
 }

@@ -16,6 +16,7 @@ import PlayGame from './components/playGame';
 import CreateStage from './components/stages/createStage';
 import Stage from './components/stages/stage';
 import EditStage from './components/stages/editStage';
+import StagesContainer from './components/stages/StagesContainer';
 import CreateGame from './components/games/createGame';
 import reducers from './reducers';
 import { AUTH_USER } from './actions/types';
@@ -43,6 +44,7 @@ ReactDOM.render(
         <Route path='create-game' component={RequireAuth(CreateGame)} />
         <Route path='stage/:name' component={RequireAuth(Stage)} />
         <Route path='edit-stage/:name' component={RequireAuth(EditStage)} />
+        <Route path='all-stages' component={RequireAuth(StagesContainer)} />
       </Route>
     </Router>
   </Provider>
