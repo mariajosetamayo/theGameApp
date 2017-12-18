@@ -4,10 +4,7 @@ import * as actions from '../../actions';
 
 
 export class StageDetails extends Component {
-
-
   render() {
-    console.log('props in stage details', this.props)
     return (
       <div>
         <h2>Here is a summary of the stage you just created</h2>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import { Link } from 'react-router';
 import * as actions from '../../actions';
 
 import StageDetails from './stageDetails';
@@ -30,7 +31,9 @@ export class Stage extends Component {
     return (
       <div style={containerStyle} className='jumbotron'>
         <StageDetails stageDetails={this.props.savedStage === undefined ? emptyObject : this.props.savedStage}/>
-        <button className='btn btn-success'>Edit</button>
+        <Link to={'/edit-stage/' + this.props.params.name}>
+          <button className='btn btn-success'>Edit</button>
+        </Link>
       </div>
     );
   }
