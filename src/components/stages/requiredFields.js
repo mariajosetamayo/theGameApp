@@ -115,7 +115,7 @@ export class RequiredStageFields extends Component {
           <label>Percentage deduction per wrong answer</label>
           <input id='stageDeductions' value={this.state.percentageDeductionPerWrongAnswer === null ? this.props.stageDetails.percentageDeductionPerWrongAnswer : this.state.percentageDeductionPerWrongAnswer} onChange={this.handleChange} ref = {ref => this.deductions = ref} type="text" className="form-control"  placeholder="The answer/solution to your challenge" />
         </div>
-        {location.pathname === '/create-stage' ? null :<button style={saveButtonStyle} className="btn btn-primary" onClick={this.onSaveField}>Save</button>}
+        <button style={saveButtonStyle} className="btn btn-primary" onClick={this.onSaveField}>Save</button>
       </div>
     );
   }

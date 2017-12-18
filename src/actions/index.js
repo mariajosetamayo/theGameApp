@@ -73,7 +73,10 @@ export function createStage(stage) {
   const authorizationHeaders= {headers: {authorization: localStorage.getItem('token')}}
   return function(dispatch) {
     axios.post(`${ROOT_URL}/createStage`,
-      {name: stage.name, content: stage.content, instructions: stage.instructions, answer: stage.answer},
+      {name: stage.name, content: stage.content, instructions: stage.instructions,
+        answer: stage.answer, percentageDeductionPerWrongAnswer: stage.percentageDeductionPerWrongAnswer,
+        requirements: stage.requirements, timeUntilOneTenthDeduction: stage.timeUntilOneTenthDeduction
+      },
       authorizationHeaders)
     .then(response => {
       // console.log('this is the repsonse for create stage', response)
@@ -116,14 +119,18 @@ export function fetchStageDetails(name) {
 }
 
 export function editStageDetails(name, updatedDetails) {
-  console.log('calling action to edit stage', updatedDetails)
+  console.log('calling action to edit stage', name)
   const authorizationHeaders= {headers: {authorization: localStorage.getItem('token')}}
   return function(dispatch) {
-    axios.get(`${ROOT_URL}/updateStage/` + name, {
-      headers: { authorization: localStorage.getItem('token')}
-    })
+    axios.put(`${ROOT_URL}/updateStage/` + name,
+      {name: updatedDetails.name, content: updatedDetails.content, instructions: updatedDetails.instructions,
+        answer: updatedDetails.answer, percentageDeductionPerWrongAnswer: updatedDetails.percentageDeductionPerWrongAnswer,
+        requirements: updatedDetails.requirements, timeUntilOneTenthDeduction: updatedDetails.timeUntilOneTenthDeduction},
+        authorizationHeaders
+    )
     .then(response => {
       console.log('this is the repsonse for edit stage', response)
+      browserHistory.push('/home');
       // dispatch({
       //   type: EDIT_STAGE_DETAILS,
       //   payload: response.data
