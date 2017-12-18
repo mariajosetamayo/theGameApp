@@ -14,7 +14,7 @@ export class Hint extends Component {
     const hintValues={
       text: this.hintDetails.value,
       percentDeductionIfUsed: this.deduction.value,
-      stage: this.props.stageId
+      stage: this.props.stage
     }
     console.log('these are the hint values', hintValues)
     this.props.dispatch(
@@ -39,7 +39,7 @@ export class Hint extends Component {
         </div>
         <div className="form-group">
           <label>Percentage deduction is used</label>
-          <input ref = {ref => this.deduction = ref} type="text" className="form-control" id="stageName" placeholder="How much would you like to deduct from the score of the stage for using this hint? Ex. 10%" />
+          <input ref = {ref => this.deduction = ref} type="text" className="form-control" id="stageName" placeholder="Ex. 10%" />
         </div>
         <button type="submit" className="btn btn-primary" onClick={this.onCreateHintClick}>Add</button>
       </div>
