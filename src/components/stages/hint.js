@@ -15,21 +15,22 @@ export class Hint extends Component {
       text: this.hintDetails.value,
       percentDeductionIfUsed: this.deduction.value,
       stage: this.props.stage
-    }
+    };
     console.log('these are the hint values', hintValues)
     this.props.dispatch(
       actions.createHint(hintValues)
-    )
+    );
   }
 
 
   render() {
-    console.log('props in hint', this.props)
+    console.log('props in hint', this.props);
     //TODO: transfer styles to individual css files.
 
     const textareaStyle={
       width: '100%'
-    }
+    };
+
     return (
       <div className='jumbotron'>
         <div className="form-group">
@@ -51,4 +52,4 @@ function mapStateToProps (state) {
   return { stageDetails: state.app.stageValues };
 }
 
-export default connect(mapStateToProps)(Hint)
+export default connect(mapStateToProps)(Hint);
