@@ -61,15 +61,6 @@ export class RequiredStageFields extends Component {
     })
   }
 
-  // onKeyDown(e){
-  //   e.preventDefault()
-  //   if(e.keyCode === 8){
-  //     this.setState({
-  //       name: ''
-  //     })
-  //   }
-  // }
-
   render() {
     console.log('these are the params', location.pathname)
     const formStyles={

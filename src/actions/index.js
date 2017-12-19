@@ -179,3 +179,15 @@ export function createHint(hint){
     })
   }
 }
+
+export function createGame(name){
+  const authorizationHeaders= {headers: {authorization: localStorage.getItem('token')}}
+  return function(dispatch) {
+    axios.post(`${ROOT_URL}/createGame`,
+      {name}, authorizationHeaders
+    )
+    .then(response => {
+      console.log('this is the response from hint', response)
+    })
+  }
+}
