@@ -1,7 +1,10 @@
 import {
   STORE_STAGE_DETAILS,
   FETCHED_STAGE_DETAILS,
-  FETCH_STAGE_DETAILS
+  FETCH_STAGE_DETAILS,
+  FETCH_SEARCH_USER_RESULTS,
+  FETCH_SEARCH_GAME_RESULTS,
+  FETCH_SEARCH_STAGE_RESULTS
 } from '../actions/types';
 
 export default function(state = {}, action) {
@@ -14,6 +17,12 @@ export default function(state = {}, action) {
       return {...state, createdStage: action.payload}
     case FETCH_STAGE_DETAILS:
       return {...state, stage: action.payload}
+    case FETCH_SEARCH_USER_RESULTS:
+      return {...state, userResults: action.payload}
+    case FETCH_SEARCH_GAME_RESULTS:
+      return {...state, gameResults: action.payload}
+    case FETCH_SEARCH_STAGE_RESULTS:
+      return {...state, stageResults: action.payload}
   }
 
   return state;
