@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as actions from '../../actions';
 import {connect} from 'react-redux';
+import { Link } from 'react-router';
 
 import CreateStage from '../stages/createStage';
 
@@ -8,15 +9,21 @@ export default class CreateGame extends Component {
 
   constructor(props){
     super(props)
+    this.state={
+      gameName: null
+    }
     this.saveGameName = this.saveGameName.bind(this);
   }
 
   saveGameName(e) {
     e.preventDefault();
-    const gameName= this.gameName.value;
+    const enteredGameName= this.gameName.value;
     this.props.dispatch(
-      actions.createGame(gameName)
+      actions.createGame(enteredGameName)
     );
+    this.setState({
+      gameName: enteredGameName
+    })
   }
 
   render() {
@@ -43,8 +50,7 @@ export default class CreateGame extends Component {
           </div>
           <h3>2. Add a stage to your game</h3>
           <div>
-            <a className='btn btn-success'>Browse stages</a>
-            <a className='btn btn-success' style={stageButtonStyles}>Add a new stage</a>
+            <Link to={'/update-game/' + this.state.gameName}><div className='btn btn-success' style={stageButtonStyles}>Edit game</div></Link>
           </div>
         </div>
       </div>

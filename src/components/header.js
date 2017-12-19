@@ -19,13 +19,13 @@ class Header extends Component {
       ]
     }
   }
-  
+
   render(){
     return (
       <nav className = "navbar navbar-fixed-top navbar-toggleable-md navBar">
         <div className = "container-fluid">
           <div className="navbar-header">
-            <Link to= "/" className="navbar-brand logo">Game</Link>
+            <Link to= "/home" className="navbar-brand logo">Game</Link>
           </div>
          <div>
             <ul className="nav navbar-nav pull-right accountLinks">
