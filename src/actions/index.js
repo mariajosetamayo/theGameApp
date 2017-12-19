@@ -27,15 +27,22 @@ export function search (type, text) {
           resultingType = FETCH_SEARCH_GAME_RESULTS;
         } else {
           resultingType = FETCH_SEARCH_STAGE_RESULTS;
-        }
-        dispatch({
-          type: resultingType,
-          payload: response.data.results,
-        });
+        };
+        if (text !== '') {
+          dispatch({
+            type: resultingType,
+            payload: response.data.results,
+          });
+        } else {
+          dispatch({
+            type: resultingType,
+            payload: [],
+          });
+        };
       }
     )
   };
-}
+};
 
 export function signinUser({username, password}){
   return function(dispatch) {
