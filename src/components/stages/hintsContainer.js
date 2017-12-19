@@ -17,19 +17,20 @@ export class HintsContainer extends Component {
   }
 
   addHint(e) {
-    console.log('this is the event', e.target.value)
-    e.preventDefault();
+    console.log('this is the event', e.target.id)
+    // e.preventDefault();
     this.setState({
       numberOfHints: this.state.numberOfHints + 1
     });
-    let element = document.getElementById('div' + e.target.value)
+    // let element = this.refs['row' + e.target.value].getDOMNode()
+    let element = document.getElementById('div' + e.target.id)
     // let element = this.e.target.value
     console.log('this is the element', element)
     scrollintoview(element)
   }
 
   render() {
-    console.log('props in hint', this.props)
+    console.log('props in hint', this.state)
     //TODO: transfer styles to individual css files.
 
     const textareaStyle={
@@ -39,12 +40,12 @@ export class HintsContainer extends Component {
 
 
     for(var i = 0; i < this.state.numberOfHints; i ++){
-      hints.push(<div key={i + 1} id={'div' + i}><Hint stage={this.props.stageId} key={i} number={i}/></div>)
+      hints.push(<div key={'div'+1} id={'div'+i}><Hint stage={this.props.stageId} key={i} number={i}/></div>)
     };
 
     return (
       <div>
-        <p><a onClick={this.addHint} value={'div' + hints.length}  className='btn btn-success'>Add Hint</a></p>
+        <p><a onClick={this.addHint} id={'div' + this.state.numberOfHints}  className='btn btn-success'>Add Hint</a></p>
         <div>
           {hints}
         </div>
