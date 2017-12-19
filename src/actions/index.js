@@ -6,9 +6,36 @@ import {AUTH_USER,
         UNAUTH_USER,
         STORE_STAGE_DETAILS,
         FETCHED_STAGE_DETAILS,
-        FETCH_STAGE_DETAILS} from './types';
+        FETCH_STAGE_DETAILS,
+        FETCH_SEARCH_USER_RESULTS,
+        FETCH_SEARCH_GAME_RESULTS,
+        FETCH_SEARCH_STAGE_RESULTS} from './types';
 
 const ROOT_URL = 'http://localhost:1515'
+
+export function search (type, text) {
+  return function (dispatch) {
+    axios.post(
+      `${ROOT_URL}/search${type.charAt(0).toUpperCase() + type.slice(1)}s`,
+      { text },
+      {headers: {authorization: localStorage.getItem('token')}})
+      .then(response => {
+        let resultingType
+        if (type === 'user') {
+          resultingType = FETCH_SEARCH_USER_RESULTS;
+        } else if (type === 'game') {
+          resultingType = FETCH_SEARCH_GAME_RESULTS;
+        } else {
+          resultingType = FETCH_SEARCH_STAGE_RESULTS;
+        }
+        dispatch({
+          type: resultingType,
+          payload: response.data.results,
+        });
+      }
+    )
+  };
+}
 
 export function signinUser({username, password}){
   return function(dispatch) {
