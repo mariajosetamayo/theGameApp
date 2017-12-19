@@ -1,21 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
+import SearchResults from './searchResults'
 
 export class Searcher extends Component {
   constructor(props) {
     super(props)
   }
 
-  onKeyUp (e) {
+  onKeyUp(e) {
+    const { dispatch, searchingFor } = this.props;
     e.preventDefault();
-    this.props.dispatch(actions.search(this.props.searchingFor, e.target.value));
+    dispatch(actions.search(searchingFor, e.target.value));
   }
 
   render() {
+    const { searchingFor, userResults, gameResults, stageResults } = this.props;
     return (
       <div>
-        <input id= 'searchField' type='text' placeholder={`Find a ${this.props.searchingFor}!`} onKeyUp={this.onKeyUp.bind(this)} />
+        <input id= 'searchField' type='text' placeholder={`Find a ${searchingFor}!`} onKeyUp={this.onKeyUp.bind(this)} />
+        <SearchResults type={searchingFor} userResults={userResults} gameResults={gameResults} stageResults={stageResults} />
       </div>
     );
   };
