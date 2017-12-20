@@ -20,6 +20,7 @@ import StagesContainer from './components/stages/StagesContainer';
 import InteractivePlayerContainer from './components/interactivePlayer/interactivePlayerContainer'
 import CreateGame from './components/games/createGame';
 import GameInstanceContainer from './components/gameInstances/gameInstanceContainer';
+import UpdateGame from './components/games/UpdateGame';
 import reducers from './reducers';
 import { AUTH_USER } from './actions/types';
 
@@ -48,6 +49,7 @@ ReactDOM.render(
         <Route path='stage/:name' component={RequireAuth(Stage)} />
         <Route path='edit-stage/:name' component={RequireAuth(EditStage)} />
         <Route path='all-stages' component={RequireAuth(StagesContainer)} />
+        <Route path='update-game/:name' component={RequireAuth(UpdateGame)} />
       </Route>
     </Router>
   </Provider>
