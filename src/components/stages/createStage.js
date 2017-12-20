@@ -9,8 +9,9 @@ export class CreateStage extends Component {
   constructor(props){
     super(props);
     this.state={
-      error: false
-    }
+      error: false,
+      submittedStage: false
+    };
     this.onCreateStageClick = this.onCreateStageClick.bind(this);
   }
 
@@ -20,8 +21,15 @@ export class CreateStage extends Component {
     if(!this.stageName.value || !this.stageContent.value || this.stageInstructions.value || this.stageAnswer.value){
       this.setState({
         error: true
-      })
+      });
     }
+
+    if(this.stageName.value || this.stageContent.value || this.stageInstructions.value || this.stageAnswer.value){
+      this.setState({
+        submittedStage: true
+      });
+    }
+
     const stage = {
       name: this.stageName.value,
       content: this.stageContent.value,
@@ -30,13 +38,13 @@ export class CreateStage extends Component {
       timeUntilOneTenthDeduction: this.stageTimeDeduction.value,
       requirements: this.stageRequirements.value,
       percentageDeductionPerWrongAnswer: this.stageWrongAnswerDeduction.value
-    }
+    };
 
     console.log('stage values', stage)
 
     this.props.dispatch(
       actions.createStage(stage)
-    )
+    );
   }
 
   renderAlert() {
@@ -50,19 +58,18 @@ export class CreateStage extends Component {
   render() {
 
     //TODO: transfer styles to individual css files.
-    console.log('THESE ARE THE PROPS IN CREATE STAGE', this.props.params.location)
     const formStyles={
       marginTop: '20%',
       marginBottom: '15%'
-    }
+    };
 
     const saveButtonStyle={
       marginTop: '5px'
-    }
+    };
 
     const textareaStyle={
       width: '100%'
-    }
+    };
 
     return (
       <form style={formStyles}>

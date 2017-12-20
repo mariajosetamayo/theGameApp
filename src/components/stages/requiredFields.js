@@ -62,7 +62,7 @@ export class RequiredStageFields extends Component {
   }
 
   render() {
-    console.log('these are the params', location.pathname)
+    // console.log('these are the params', location.pathname)
     const formStyles={
       marginTop: '20%'
     }

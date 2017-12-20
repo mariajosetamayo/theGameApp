@@ -24,6 +24,7 @@ export default class UpdateGame extends Component {
   }
 
   render() {
+    console.log('PARAMS', this.props.params.name)
     const addStageButtonStyle= {
       marginTop: '10%'
     }
@@ -36,8 +37,8 @@ export default class UpdateGame extends Component {
 
     for(var i = 0; i < this.state.numberOfStages; i ++){
       stages.push(
-        <div key={i} id={'div'+i}>
-          <CreateStage location='updateGame'/>
+        <div key={i} id={'stage'+i}>
+          <CreateStage />
         </div>)
     };
 

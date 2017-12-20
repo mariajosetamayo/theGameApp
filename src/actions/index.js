@@ -118,7 +118,7 @@ export function createStage(stage) {
         type: FETCHED_STAGE_DETAILS,
         payload: response.data
       });
-      browserHistory.push('/stage/' + response.data.name);
+      browserHistory.push('/edit-stage/' + response.data.name);
     })
   }
 }
