@@ -33,6 +33,7 @@ export class CreateStage extends Component {
     }
 
     console.log('stage values', stage)
+
     this.props.dispatch(
       actions.createStage(stage)
     )
@@ -49,7 +50,7 @@ export class CreateStage extends Component {
   render() {
 
     //TODO: transfer styles to individual css files.
-    console.log('THESE ARE THE PROPS IN CREATE STAGE', this.props)
+    console.log('THESE ARE THE PROPS IN CREATE STAGE', this.props.params.location)
     const formStyles={
       marginTop: '20%',
       marginBottom: '15%'
@@ -62,6 +63,7 @@ export class CreateStage extends Component {
     const textareaStyle={
       width: '100%'
     }
+
     return (
       <form style={formStyles}>
         <div className="form-group">
