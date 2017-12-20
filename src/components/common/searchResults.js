@@ -25,7 +25,7 @@ export class SearchResults extends Component {
     const { gameResults } = this.props;
     if (!gameResults) { return };
     return this.props.gameResults.map((game, index) => {
-      return (<GameResult key={index} name={game.name} description={game.description}/>)
+      return (<GameResult key={index} gameId={game._id} name={game.name} description={game.description}/>)
     });
   }
 
@@ -33,7 +33,7 @@ export class SearchResults extends Component {
     const { stageResults } = this.props;
     if (!stageResults) { return };
     return this.props.stageResults.map((stage, index) => {
-      return (<StageResult key={index} name={stage.name} instructions={stage.instructions} requirements={stage.requirements}/>)
+      return (<StageResult key={index} stageId={stage._id} name={stage.name} instructions={stage.instructions} requirements={stage.requirements}/>)
     });
   }
 
@@ -41,7 +41,7 @@ export class SearchResults extends Component {
     const { userResults } = this.props;
     if (!userResults) { return };
     return this.props.userResults.map((user, index) => {
-      return (<UserResult key={index} name={user.name} gamesInProgress={user.gamesInProgress} gamesFinished={user.gamesFinished}/>)
+      return (<UserResult key={index} userId={user._id} name={user.name} gamesInProgress={user.gamesInProgress} gamesFinished={user.gamesFinished}/>)
     });
   }
 

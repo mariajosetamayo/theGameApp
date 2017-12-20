@@ -8,6 +8,10 @@ export class Searcher extends Component {
     super(props)
   }
 
+  componentWillMount() {
+    this.props.dispatch(actions.clearTeam());
+  }
+
   onKeyUp(e) {
     const { dispatch, searchingFor } = this.props;
     e.preventDefault();

@@ -9,9 +9,48 @@ import {AUTH_USER,
         FETCH_STAGE_DETAILS,
         FETCH_SEARCH_USER_RESULTS,
         FETCH_SEARCH_GAME_RESULTS,
-        FETCH_SEARCH_STAGE_RESULTS} from './types';
+        FETCH_SEARCH_STAGE_RESULTS,
+        CREATE_GAME_INSTANCE_AND_REDIRECT,
+        CLEAR_TEAM,
+        ADD_USER_TO_TEAM} from './types';
 
 const ROOT_URL = 'http://localhost:1515'
+
+export function clearTeam () {
+  return function (dispatch) {
+    dispatch({
+      type: CLEAR_TEAM,
+      payload: [],
+    });
+  }
+}
+
+export function addUserToTeam (latestTeam) {
+  return function (dispatch) {
+    dispatch({
+      type: ADD_USER_TO_TEAM,
+      payload: latestTeam,
+    });
+  }
+}
+
+export function createGameInstanceAndRedirect (gameId, team) {
+  return function (dispatch) {
+    axios.post(
+      `${ROOT_URL}/createGameInstance`,
+      { team, game: gameId },
+      {headers: {authorization: localStorage.getItem('token')}}
+    ).then(response => {
+      console.log("RESPONSE DATA!!!!!!!!!!!!!!: ", response.data)
+      // some stuff happens
+      dispatch({
+        type: CREATE_GAME_INSTANCE_AND_REDIRECT,
+        payload: response.data,
+      });
+      browserHistory.push(`/play-game/${response.data._id}`)
+    })
+  };
+};
 
 export function search (type, text) {
   return function (dispatch) {

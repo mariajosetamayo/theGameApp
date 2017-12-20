@@ -7,6 +7,12 @@ export class GameResult extends Component {
     super(props)
   }
 
+  createGameInstanceAndRedirect() {
+    const { gameId, team } = this.props;
+    const teamIds = team.length > 0 ? team.map(member => { return member.userId }) : []
+    this.props.dispatch(actions.createGameInstanceAndRedirect(gameId, teamIds));
+  }
+
   render() {
     const { name, description, key } = this.props;
     const outer = {
@@ -37,11 +43,17 @@ export class GameResult extends Component {
           <span>{description}</span>
         </div>
         <div style={innerRight}>
-          <button>PLAY GAME</button>
+          <button onClick={this.createGameInstanceAndRedirect.bind(this)}>PLAY GAME</button>
         </div>
       </div>
     );
   };
 };
 
-export default connect(null)(GameResult);
+function mapStateToProps (state) {
+  return {
+    team: state.app.latestTeam,
+  };
+};
+
+export default connect(mapStateToProps)(GameResult);

@@ -4,7 +4,10 @@ import {
   FETCH_STAGE_DETAILS,
   FETCH_SEARCH_USER_RESULTS,
   FETCH_SEARCH_GAME_RESULTS,
-  FETCH_SEARCH_STAGE_RESULTS
+  FETCH_SEARCH_STAGE_RESULTS,
+  CREATE_GAME_INSTANCE_AND_REDIRECT,
+  CLEAR_TEAM,
+  ADD_USER_TO_TEAM
 } from '../actions/types';
 
 export default function(state = {}, action) {
@@ -23,6 +26,12 @@ export default function(state = {}, action) {
       return {...state, gameResults: action.payload}
     case FETCH_SEARCH_STAGE_RESULTS:
       return {...state, stageResults: action.payload}
+    case CREATE_GAME_INSTANCE_AND_REDIRECT:
+      return {...state, latestGameInstance: action.payload}
+    case CLEAR_TEAM:
+      return {...state, latestTeam: action.payload}
+    case ADD_USER_TO_TEAM:
+      return {...state, latestTeam: action.payload}
   }
 
   return state;

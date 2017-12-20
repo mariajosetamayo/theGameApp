@@ -20,3 +20,9 @@ export const FETCH_STAGE_DETAILS = 'fetch_stage_details';
 export const FETCH_SEARCH_USER_RESULTS = 'fetch_search_user_results';
 export const FETCH_SEARCH_GAME_RESULTS = 'fetch_search_game_results';
 export const FETCH_SEARCH_STAGE_RESULTS = 'fetch_search_stage_results';
+
+// GameInstance types
+
+export const ADD_USER_TO_TEAM = 'add_user_to_team';
+export const CLEAR_TEAM = 'clear_team';
+export const CREATE_GAME_INSTANCE_AND_REDIRECT = 'create_game_instance_and_redirect';
