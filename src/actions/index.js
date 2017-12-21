@@ -12,9 +12,34 @@ import {AUTH_USER,
         FETCH_SEARCH_STAGE_RESULTS,
         CREATE_GAME_INSTANCE_AND_REDIRECT,
         CLEAR_TEAM,
-        ADD_USER_TO_TEAM} from './types';
+        ADD_USER_TO_TEAM,
+        GO_TO_FIRST_STAGE} from './types';
 
 const ROOT_URL = 'http://localhost:1515'
+
+export function goToFirstStage (firstStageId, gameInstanceId) {
+  return function (dispatch) {
+    axios.get(
+      `${ROOT_URL}/readStageById/${firstStageId}`,
+      {headers: {authorization: localStorage.getItem('token')}}
+    ).then(responseStage => {
+      axios.post(
+        `${ROOT_URL}/readStageInstance`,
+        { gameInstance: gameInstanceId, stage: firstStageId },
+        {headers: {authorization: localStorage.getItem('token')}}
+      ).then(responseStageInstance => {
+        dispatch({
+          type: GO_TO_FIRST_STAGE,
+          payload: {
+            latestStageInstance: responseStageInstance.data,
+            latestStage: responseStage.data,
+          },
+        });
+        browserHistory.push(`/play-game/${gameInstanceId}/${responseStageInstance.data._id}`);
+      });
+    });
+  };
+};
 
 export function clearTeam () {
   return function (dispatch) {
@@ -41,13 +66,11 @@ export function createGameInstanceAndRedirect (gameId, team) {
       { team, game: gameId },
       {headers: {authorization: localStorage.getItem('token')}}
     ).then(response => {
-      console.log("RESPONSE DATA!!!!!!!!!!!!!!: ", response.data)
-      // some stuff happens
       dispatch({
         type: CREATE_GAME_INSTANCE_AND_REDIRECT,
         payload: response.data,
       });
-      browserHistory.push(`/play-game/${response.data._id}`)
+      browserHistory.push(`/play-game/${response.data._id}`);
     })
   };
 };
