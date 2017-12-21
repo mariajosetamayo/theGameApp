@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import CreateStage from '../stages/createStage';
 import RequiredStageFields from '../stages/requiredFields';
 
-
 export default class UpdateGame extends Component {
 
   constructor(props){
@@ -24,7 +23,6 @@ export default class UpdateGame extends Component {
   }
 
   render() {
-    console.log('PARAMS', this.props.params.name)
     const addStageButtonStyle= {
       marginTop: '10%'
     }
@@ -38,7 +36,7 @@ export default class UpdateGame extends Component {
     for(var i = 0; i < this.state.numberOfStages; i ++){
       stages.push(
         <div key={i} id={'stage'+i}>
-          <CreateStage />
+          <CreateStage updateGamePage='true' gameName={this.props.params.name}/>
         </div>)
     };
 

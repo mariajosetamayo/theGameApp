@@ -9,7 +9,8 @@ import {AUTH_USER,
         FETCH_STAGE_DETAILS,
         FETCH_SEARCH_USER_RESULTS,
         FETCH_SEARCH_GAME_RESULTS,
-        FETCH_SEARCH_STAGE_RESULTS} from './types';
+        FETCH_SEARCH_STAGE_RESULTS,
+        UPDATING_GAME} from './types';
 
 const ROOT_URL = 'http://localhost:1515'
 
@@ -190,4 +191,15 @@ export function createGame(name){
       console.log('this is the response from hint', response)
     })
   }
+}
+
+export function updatingGameBoolean(name) {
+  console.log('NAME IN ACTIONS', name)
+  return {
+    type: UPDATING_GAME,
+    payload: {
+      updateGame:true,
+      nameOfGame: name
+    },
+  };
 }

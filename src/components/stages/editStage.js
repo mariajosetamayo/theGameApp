@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import { Link } from 'react-router';
 import * as actions from '../../actions';
 
 import RequiredStageFields from './requiredFields';
@@ -36,10 +37,11 @@ export class EditStage extends Component {
     return (
       <div>
         <form style={formStyles}>
-          <RequiredStageFields params={this.props.params.name} stageDetails={this.props.savedStage === undefined ? emptyObject : this.props.savedStage} />
+          <RequiredStageFields updatingGame={this.props.updatingGame} params={this.props.params.name} stageDetails={this.props.savedStage === undefined ? emptyObject : this.props.savedStage} />
         </form>
         <br/>
         <HintsContainer stageId={this.props.savedStage === undefined ? emptyId : this.props.savedStage._id} />
+        { this.props.updatingGame ? <Link to={'/update-game/' + this.props.nameOfGame}><button className="btn btn-primary">Go Back to Game</button></Link> : null }
       </div>
     );
   }
@@ -48,7 +50,9 @@ export class EditStage extends Component {
 function mapStateToProps (state) {
   return {
     stage: state.app.createdStage,
-    savedStage: state.app.stage
+    savedStage: state.app.stage,
+    updatingGame: state.app.gameData.updatingGame,
+    nameOfGame: state.app.gameData.nameOfGame
   };
 }
 

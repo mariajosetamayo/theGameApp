@@ -45,6 +45,11 @@ export class CreateStage extends Component {
     this.props.dispatch(
       actions.createStage(stage)
     );
+    if(this.props.updateGamePage === 'true'){
+      this.props.dispatch(
+        actions.updatingGameBoolean(this.props.gameName)
+      )
+    }
   }
 
   renderAlert() {
@@ -56,7 +61,6 @@ export class CreateStage extends Component {
   }
 
   render() {
-
     //TODO: transfer styles to individual css files.
     const formStyles={
       marginTop: '20%',
