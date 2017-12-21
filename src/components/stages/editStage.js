@@ -15,6 +15,12 @@ export class EditStage extends Component {
     )
   }
 
+  saveStageDetails() {
+    this.props.dispatch(
+      actions.saveStageSummary(this.props.savedStage)
+    )
+  }
+
   render() {
     console.log('props in edit saga', this.props)
     const formStyles={
@@ -41,7 +47,7 @@ export class EditStage extends Component {
         </form>
         <br/>
         <HintsContainer stageId={this.props.savedStage === undefined ? emptyId : this.props.savedStage._id} />
-        { this.props.updatingGame ? <Link to={'/update-game/' + this.props.nameOfGame}><button className="btn btn-primary">Go Back to Game</button></Link> : null }
+        { this.props.updatingGame ? <Link to={'/update-game/' + this.props.nameOfGame}><button className="btn btn-primary" onClick={this.saveStageDetails.bind(this)}>Go Back to Game</button></Link> : null }
       </div>
     );
   }

@@ -5,7 +5,9 @@ import {
   FETCH_SEARCH_USER_RESULTS,
   FETCH_SEARCH_GAME_RESULTS,
   FETCH_SEARCH_STAGE_RESULTS,
-  UPDATING_GAME
+  UPDATING_GAME,
+  FETCH_GAME_DETAILS,
+  SAVE_STAGE_SUMMARY
 } from '../actions/types';
 
 export default function(state = {}, action) {
@@ -26,7 +28,10 @@ export default function(state = {}, action) {
       return {...state, stageResults: action.payload}
     case UPDATING_GAME:
       return {...state, gameData: {updatingGame: action.payload.updateGame, nameOfGame: action.payload.nameOfGame}}
+    case FETCH_GAME_DETAILS:
+      return {...state, gameDetails: action.payload}
+    case SAVE_STAGE_SUMMARY:
+      return {...state, savedStageSummary: action.payload}
   }
-
   return state;
 }

@@ -16,6 +16,11 @@ export const CREATE_STAGE = 'create_stage';
 export const FETCH_STAGE_DETAILS = 'fetch_stage_details';
 export const UPDATING_GAME = 'updating_game';
 
+// Game types
+
+export const FETCH_GAME_DETAILS = 'fetch_game_details';
+export const SAVE_STAGE_SUMMARY = 'save_stage_summary';
+
 // Search types
 
 export const FETCH_SEARCH_USER_RESULTS = 'fetch_search_user_results';
