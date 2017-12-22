@@ -12,9 +12,186 @@ import {AUTH_USER,
         FETCH_SEARCH_STAGE_RESULTS,
         UPDATING_GAME,
         FETCH_GAME_DETAILS,
-        SAVE_STAGE_SUMMARY} from './types';
+        SAVE_STAGE_SUMMARY,
+        CREATE_GAME_INSTANCE_AND_REDIRECT,
+        CLEAR_TEAM,
+        ADD_USER_TO_TEAM,
+        GO_TO_FIRST_STAGE,
+        GO_TO_NEXT_STAGE,
+        FINALIZE_GAME,
+        UPDATE_STAGE_INSTANCE} from './types';
 
-const ROOT_URL = 'http://localhost:1515'
+const ROOT_URL = 'http://localhost:1515';
+
+export function checkHint (hints, time, stageInstance) {
+  return function (dispatch) {
+    axios.put(
+      `${ROOT_URL}/updateStageInstance/${stageInstance._id}`,
+      { hintsUsed: hints, time },
+      {headers: {authorization: localStorage.getItem('token')}}
+    ).then(response => {
+      dispatch({
+        type: UPDATE_STAGE_INSTANCE,
+        payload: response.data,
+      });
+    })
+  }
+}
+
+export function submitAnswer (answers, time, stageInstance) {
+  return function (dispatch) {
+    axios.put(
+      `${ROOT_URL}/updateStageInstance/${stageInstance._id}`,
+      { answers, time },
+      {headers: {authorization: localStorage.getItem('token')}}
+    ).then(response => {
+      // this line means it's returned a finalized gameInstance so game is over, so in that case redirect to game stats page
+      if (response.data.finalized) {
+        dispatch({
+          type: FINALIZE_GAME,
+          payload: response.data,
+        });
+        browserHistory.push(`/finished-games/${response.data._id}`);
+      // otherwise we need to redirect to the next stage
+      } else if (response.data._id === stageInstance._id) {
+        dispatch({
+          type: UPDATE_STAGE_INSTANCE,
+          payload: response.data,
+        });
+      } else {
+        axios.get(
+          `${ROOT_URL}/readGameInstance/${stageInstance.gameInstance}`,
+          {headers: {authorization: localStorage.getItem('token')}}
+        ).then(responseGameInstance => {
+          const nextStageId = responseGameInstance.data.stages[responseGameInstance.data.stages.indexOf(stageInstance.stage) + 1]
+          axios.get(
+            `${ROOT_URL}/readStageById/${nextStageId}`,
+            {headers: {authorization: localStorage.getItem('token')}}
+          ).then(responseStage => {
+            axios.post(
+              `${ROOT_URL}/readStageInstance`,
+              { gameInstance: stageInstance.gameInstance, stage: nextStageId },
+              {headers: {authorization: localStorage.getItem('token')}}
+            ).then(responseStageInstance => {
+              dispatch({
+                type: GO_TO_NEXT_STAGE,
+                payload: {
+                  latestStageInstance: responseStageInstance.data,
+                  latestStage: responseStage.data,
+                },
+              });
+              browserHistory.push(`/play-game/${stageInstance.gameInstance}/${responseStageInstance.data._id}`);
+            })
+          })
+        })
+      }
+    })
+  };
+}
+
+export function finalizeStageBecauseOfTime (time, stageInstance) {
+  return function (dispatch) {
+    axios.put(
+      `${ROOT_URL}/updateStageInstance/${stageInstance._id}`,
+      { finalized: true, time: time },
+      {headers: {authorization: localStorage.getItem('token')}}
+    ).then(response => {
+      // this line means it's returned a finalized gameInstance so game is over, so in that case redirect to game stats page
+      if (response.data.finalized) {
+        dispatch({
+          type: FINALIZE_GAME,
+          payload: response.data,
+        });
+        browserHistory.push(`/finished-games/${response.data._id}`);
+      // otherwise we need to redirect to the next stage
+      } else {
+        axios.get(
+          `${ROOT_URL}/readGameInstance/${stageInstance.gameInstance}`,
+          {headers: {authorization: localStorage.getItem('token')}}
+        ).then(responseGameInstance => {
+          const nextStageId = responseGameInstance.data.stages[responseGameInstance.data.stages.indexOf(stageInstance.stage) + 1]
+          axios.get(
+            `${ROOT_URL}/readStageById/${nextStageId}`,
+            {headers: {authorization: localStorage.getItem('token')}}
+          ).then(responseStage => {
+            axios.post(
+              `${ROOT_URL}/readStageInstance`,
+              { gameInstance: stageInstance.gameInstance, stage: nextStageId },
+              {headers: {authorization: localStorage.getItem('token')}}
+            ).then(responseStageInstance => {
+              dispatch({
+                type: GO_TO_NEXT_STAGE,
+                payload: {
+                  latestStageInstance: responseStageInstance.data,
+                  latestStage: responseStage.data,
+                },
+              });
+              browserHistory.push(`/play-game/${stageInstance.gameInstance}/${responseStageInstance.data._id}`);
+            })
+          })
+        })
+      }
+    })
+  };
+};
+
+export function goToFirstStage (firstStageId, gameInstanceId) {
+  return function (dispatch) {
+    axios.get(
+      `${ROOT_URL}/readStageById/${firstStageId}`,
+      {headers: {authorization: localStorage.getItem('token')}}
+    ).then(responseStage => {
+      axios.post(
+        `${ROOT_URL}/readStageInstance`,
+        { gameInstance: gameInstanceId, stage: firstStageId },
+        {headers: {authorization: localStorage.getItem('token')}}
+      ).then(responseStageInstance => {
+        dispatch({
+          type: GO_TO_FIRST_STAGE,
+          payload: {
+            latestStageInstance: responseStageInstance.data,
+            latestStage: responseStage.data,
+          },
+        });
+        browserHistory.push(`/play-game/${gameInstanceId}/${responseStageInstance.data._id}`);
+      });
+    });
+  };
+};
+
+export function clearTeam () {
+  return function (dispatch) {
+    dispatch({
+      type: CLEAR_TEAM,
+      payload: [],
+    });
+  }
+}
+
+export function addUserToTeam (latestTeam) {
+  return function (dispatch) {
+    dispatch({
+      type: ADD_USER_TO_TEAM,
+      payload: latestTeam,
+    });
+  }
+}
+
+export function createGameInstanceAndRedirect (gameId, team) {
+  return function (dispatch) {
+    axios.post(
+      `${ROOT_URL}/createGameInstance`,
+      { team, game: gameId },
+      {headers: {authorization: localStorage.getItem('token')}}
+    ).then(response => {
+      dispatch({
+        type: CREATE_GAME_INSTANCE_AND_REDIRECT,
+        payload: response.data,
+      });
+      browserHistory.push(`/play-game/${response.data._id}`);
+    })
+  };
+};
 
 export function search (type, text) {
   return function (dispatch) {
