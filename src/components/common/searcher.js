@@ -20,9 +20,14 @@ export class Searcher extends Component {
 
   render() {
     const { searchingFor, userResults, gameResults, stageResults } = this.props;
+    const input = {
+      borderRadius: '5px',
+      borderStyle: 'solid',
+      border: '1px black',
+    };
     return (
       <div>
-        <input id= 'searchField' type='text' placeholder={`Find a ${searchingFor}!`} onKeyUp={this.onKeyUp.bind(this)} />
+        <input style={input} id= 'searchField' type='text' placeholder={`Find a ${searchingFor}!`} onKeyUp={this.onKeyUp.bind(this)} />
         <SearchResults type={searchingFor} userResults={userResults} gameResults={gameResults} stageResults={stageResults} />
       </div>
     );

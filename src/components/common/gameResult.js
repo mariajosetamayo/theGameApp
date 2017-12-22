@@ -16,11 +16,12 @@ export class GameResult extends Component {
   render() {
     const { name, description, key } = this.props;
     const outer = {
-      height: '60px',
+      height: 'fit-content',
       marginTop: '20px',
-      border: '1px solid #d2d2d2',
+      border: '1px solid darkred',
       borderRadius: '5px',
       paddingTop: '5px',
+      paddingBottom: '15px',
       paddingLeft: '5px',
       position: 'relative',
     };
@@ -36,14 +37,26 @@ export class GameResult extends Component {
       verticalAlign: 'top',
       paddingTop: '13px',
     };
+    const nameText = {
+      fontSize: '25px',
+    };
+    const button = {
+      padding: '5px',
+      borderRadius: '3px',
+      border: '1px solid darkred',
+      width: 'fit-content',
+      fontSize: '20px',
+      cursor: 'pointer',
+      background: 'transparent',
+    };
     return (
       <div style={outer} key={key}>
         <div style={innerLeft}>
-          <strong>{name}</strong><br/>
+          <strong style={nameText}>{name}</strong><br/>
           <span>{description}</span>
         </div>
         <div style={innerRight}>
-          <button onClick={this.createGameInstanceAndRedirect.bind(this)}>PLAY GAME</button>
+          <button style={button} onClick={this.createGameInstanceAndRedirect.bind(this)}>Play Now</button>
         </div>
       </div>
     );
