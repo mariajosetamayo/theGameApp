@@ -27,3 +27,9 @@ export const ADD_USER_TO_TEAM = 'add_user_to_team';
 export const CLEAR_TEAM = 'clear_team';
 export const CREATE_GAME_INSTANCE_AND_REDIRECT = 'create_game_instance_and_redirect';
 export const GO_TO_FIRST_STAGE = 'go_to_first_stage';
+export const FINALIZE_GAME = 'finalize_game';
+
+// StageInstance types
+
+export const GO_TO_NEXT_STAGE = 'go_to_next_stage';
+export const UPDATE_STAGE_INSTANCE = 'update_stage_instance';

@@ -8,7 +8,10 @@ import {
   CREATE_GAME_INSTANCE_AND_REDIRECT,
   CLEAR_TEAM,
   ADD_USER_TO_TEAM,
-  GO_TO_FIRST_STAGE
+  GO_TO_FIRST_STAGE,
+  GO_TO_NEXT_STAGE,
+  FINALIZE_GAME,
+  UPDATE_STAGE_INSTANCE
 } from '../actions/types';
 
 export default function(state = {}, action) {
@@ -35,6 +38,12 @@ export default function(state = {}, action) {
       return {...state, latestTeam: action.payload}
     case GO_TO_FIRST_STAGE:
       return {...state, latestStageInstance: action.payload.latestStageInstance, latestStage: action.payload.latestStage}
+    case GO_TO_NEXT_STAGE:
+      return {...state, latestStageInstance: action.payload.latestStageInstance, latestStage: action.payload.latestStage}
+    case FINALIZE_GAME:
+      return {...state, latestFinishedGameInstance: action.payload}
+    case UPDATE_STAGE_INSTANCE:
+      return {...state, latestStageInstance: action.payload}
   }
 
   return state;
