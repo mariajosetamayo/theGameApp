@@ -23,6 +23,20 @@ import {AUTH_USER,
 
 const ROOT_URL = 'http://localhost:1515';
 
+export function fetchStageDetailsById (id) {
+  return function (dispatch) {
+    axios.get(
+      `${ROOT_URL}/readStageById/${id}`,
+      {headers: {authorization: localStorage.getItem('token')}}
+    ).then(response => {
+      dispatch({
+        type: FETCH_STAGE_DETAILS,
+        payload: response.data,
+      });
+    })
+  };
+};
+
 export function checkHint (hints, time, stageInstance) {
   return function (dispatch) {
     axios.put(
@@ -287,10 +301,7 @@ export function createStage(stage) {
   const authorizationHeaders= {headers: {authorization: localStorage.getItem('token')}}
   return function(dispatch) {
     axios.post(`${ROOT_URL}/createStage`,
-      {name: stage.name, content: stage.content, instructions: stage.instructions,
-        answer: stage.answer, percentageDeductionPerWrongAnswer: stage.percentageDeductionPerWrongAnswer,
-        requirements: stage.requirements, timeUntilOneTenthDeduction: stage.timeUntilOneTenthDeduction
-      },
+      stage,
       authorizationHeaders)
     .then(response => {
       // console.log('this is the repsonse for create stage', response)

@@ -24,7 +24,6 @@ export class HintsContainer extends Component {
   }
 
   render() {
-    console.log('props in hint', this.state)
     //TODO: transfer styles to individual css files.
 
     const textareaStyle={
@@ -36,7 +35,6 @@ export class HintsContainer extends Component {
     for(var i = 0; i < this.state.numberOfHints; i ++){
       hints.push(<div key={i} id={'div'+i}><Hint stage={this.props.stageId} /></div>)
     };
-    console.log('HINTS', hints)
     return (
       <div>
         <div>

@@ -8,11 +8,19 @@ import Hint from './hint';
 import HintsContainer from './hintsContainer';
 
 export class EditStage extends Component {
+  constructor(props){
+    super(props);
+    this.state= {
+      savedStage: this.props.savedStage,
+    };
+  }
 
   componentWillMount() {
-    this.props.dispatch(
-      actions.fetchStageDetails(this.props.params.name)
-    )
+    if (this.props.id) {
+      this.props.dispatch(actions.fetchStageDetailsById(this.props.id))
+    } else {
+      this.props.dispatch(actions.fetchStageDetails(this.props.params.name))
+    }
   }
 
   saveStageDetails() {
@@ -21,8 +29,17 @@ export class EditStage extends Component {
     )
   }
 
+  componentWillReceiveProps(nextProps) {
+    console.log("RECEIVING PROPS: ", nextProps)
+    if (!this.props.id || (this.props.id && nextProps.savedStage._id !== this.props.id)) {
+      console.log("STATE IS BEING SET! ", nextProps.savedStage)
+      this.setState({ savedStage: nextProps.savedStage })
+    }
+  }
+
   render() {
-    console.log('props in edit saga', this.props)
+    const { savedStage } = this.state
+    const { updatingGame, nameOfGame, id } = this.props;
     const formStyles={
       marginTop:'15%'
     }
@@ -43,11 +60,11 @@ export class EditStage extends Component {
     return (
       <div>
         <form style={formStyles}>
-          <RequiredStageFields updatingGame={this.props.updatingGame} params={this.props.params.name} stageDetails={this.props.savedStage === undefined ? emptyObject : this.props.savedStage} />
+          <RequiredStageFields updatingGame={updatingGame} params={savedStage ? savedStage.name :  this.props.params.name} stageDetails={savedStage === undefined ? emptyObject : savedStage} />
         </form>
         <br/>
-        <HintsContainer stageId={this.props.savedStage === undefined ? emptyId : this.props.savedStage._id} />
-        { this.props.updatingGame ? <Link to={'/update-game/' + this.props.nameOfGame}><button className="btn btn-primary" onClick={this.saveStageDetails.bind(this)}>Go Back to Game</button></Link> : null }
+        <HintsContainer stageId={savedStage === undefined ? emptyId : savedStage._id} />
+        { updatingGame ? <Link to={'/update-game/' + nameOfGame}><button className="btn btn-primary" onClick={this.saveStageDetails.bind(this)}>Go Back to Game</button></Link> : null }
       </div>
     );
   }

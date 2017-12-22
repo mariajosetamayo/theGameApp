@@ -3,6 +3,7 @@ import * as actions from '../../actions';
 import {connect} from 'react-redux';
 
 import CreateStage from '../stages/createStage';
+import EditStage from '../stages/editStage';
 import RequiredStageFields from '../stages/requiredFields';
 
 export class UpdateGame extends Component {
@@ -48,7 +49,6 @@ export class UpdateGame extends Component {
       description: this.state.description,
       requirements: this.state.requirements
     }
-    console.log('GAME DETAILS', gameDetails)
     this.props.dispatch(
       actions.editGameDetails(this.state.gameName, gameDetails)
     );
@@ -56,7 +56,6 @@ export class UpdateGame extends Component {
 
 
   render() {
-    console.log('PROPS IN UPDATE GAME', this.props)
     const addStageButtonStyle= {
       marginTop: '10%'
     }
@@ -70,7 +69,7 @@ export class UpdateGame extends Component {
     for(var i = 0; i < this.state.numberOfStages; i ++){
       stages.push(
         <div key={i} id={'stage'+i}>
-          <CreateStage updateGamePage='true' gameName={this.props.params.name}/>
+          <CreateStage updateGamePage='true' gameName={this.props.params.name} createdThroughGame={this.props.gameDetails._id}/>
         </div>)
     };
 
@@ -91,6 +90,11 @@ export class UpdateGame extends Component {
           <textarea id='gameRequirements' className="form-control" rows="5" value={this.props.gameDetails === undefined ? blankObject : this.state.requirements === null ? this.props.gameDetails.requirements : this.state.requirements} onChange={this.handleChange} ref = {ref => this.gameRequirements = ref} placeholder='The requirements of your game.'></textarea>
         </div>
         <div>
+          {this.props.gameDetails ? this.props.gameDetails.stages.map(stage => {
+            return (<div key={stage}><EditStage id={stage} /></div>)
+          }) : (<div></div>)}
+        </div>
+        <div>
           {stages}
         </div>
         <p style={addStageButtonStyle}><a id='saveGame' onClick={this.saveGame} className='btn btn-success'>Save</a></p>
@@ -101,7 +105,6 @@ export class UpdateGame extends Component {
 }
 
 function mapStateToProps (state) {
-  console.log('state', state)
   return {
     gameDetails: state.app.gameDetails ,
     savedStageSummary: state.app.savedStageSummary

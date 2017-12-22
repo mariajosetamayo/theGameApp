@@ -37,10 +37,9 @@ export class CreateStage extends Component {
       answer: this.stageAnswer.value,
       timeUntilOneTenthDeduction: this.stageTimeDeduction.value,
       requirements: this.stageRequirements.value,
-      percentageDeductionPerWrongAnswer: this.stageWrongAnswerDeduction.value
+      percentageDeductionPerWrongAnswer: this.stageWrongAnswerDeduction.value,
+      createdThroughGame: this.props.createdThroughGame
     };
-
-    console.log('stage values', stage)
 
     this.props.dispatch(
       actions.createStage(stage)

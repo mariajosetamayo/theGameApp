@@ -40,8 +40,6 @@ export class RequiredStageFields extends Component {
       deductions: deductions
     };
 
-    console.log('these are the saved fields', stageFieldsValues)
-
     this.props.dispatch(
       actions.editStageDetails(this.props.params, stageFieldsValues)
     )
@@ -49,7 +47,6 @@ export class RequiredStageFields extends Component {
 
   handleChange(event) {
     event.preventDefault()
-    console.log('this is the event', event.target.id)
     this.setState({
       name: this.stageName.value,
       content: this.stageContent.value,

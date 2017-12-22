@@ -15,7 +15,6 @@ export class Stage extends Component {
   }
 
   render() {
-    console.log('these are the params', this.props.params.name)
     const containerStyle={
       marginTop: '15%'
     }
