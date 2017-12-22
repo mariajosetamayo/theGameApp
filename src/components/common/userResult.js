@@ -17,11 +17,12 @@ export class UserResult extends Component {
   render() {
     const { name, gamesInProgress, gamesFinished, key } = this.props;
     const outer = {
-      height: '100px',
+      height: 'fit-content',
       marginTop: '20px',
-      border: '1px solid #d2d2d2',
+      border: '1px solid green',
       borderRadius: '5px',
       paddingTop: '5px',
+      paddingBottom: '15px',
       paddingLeft: '5px',
       position: 'relative',
     };
@@ -37,15 +38,27 @@ export class UserResult extends Component {
       verticalAlign: 'top',
       paddingTop: '13px',
     };
+    const nameText = {
+      fontSize: '25px',
+    };
+    const button = {
+      padding: '5px',
+      borderRadius: '3px',
+      border: '1px solid green',
+      width: 'fit-content',
+      fontSize: '20px',
+      cursor: 'pointer',
+      background: 'transparent',
+    };
     return (
       <div style={outer} key={key}>
         <div style={innerLeft}>
-          <strong>{name}</strong><br/>
+          <strong style={nameText}>{name}</strong><br/>
           <span>Games in progress: {gamesInProgress.length}</span><br/>
           <span>Games finished: {gamesFinished.length}</span>
         </div>
         <div style={innerRight}>
-          <button onClick={this.addUserToTeam.bind(this)}>ADD TO TEAM</button>
+          <button style={button} onClick={this.addUserToTeam.bind(this)}>Add</button>
         </div>
       </div>
     );
