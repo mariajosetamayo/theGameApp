@@ -5,6 +5,9 @@ import {
   FETCH_SEARCH_USER_RESULTS,
   FETCH_SEARCH_GAME_RESULTS,
   FETCH_SEARCH_STAGE_RESULTS,
+  UPDATING_GAME,
+  FETCH_GAME_DETAILS,
+  SAVE_STAGE_SUMMARY,
   CREATE_GAME_INSTANCE_AND_REDIRECT,
   CLEAR_TEAM,
   ADD_USER_TO_TEAM,
@@ -30,6 +33,12 @@ export default function(state = {}, action) {
       return {...state, gameResults: action.payload}
     case FETCH_SEARCH_STAGE_RESULTS:
       return {...state, stageResults: action.payload}
+    case UPDATING_GAME:
+      return {...state, gameData: {updatingGame: action.payload.updateGame, nameOfGame: action.payload.nameOfGame}}
+    case FETCH_GAME_DETAILS:
+      return {...state, gameDetails: action.payload}
+    case SAVE_STAGE_SUMMARY:
+      return {...state, savedStageSummary: action.payload}
     case CREATE_GAME_INSTANCE_AND_REDIRECT:
       return {...state, latestGameInstance: action.payload}
     case CLEAR_TEAM:
@@ -45,6 +54,5 @@ export default function(state = {}, action) {
     case UPDATE_STAGE_INSTANCE:
       return {...state, latestStageInstance: action.payload}
   }
-
   return state;
 }

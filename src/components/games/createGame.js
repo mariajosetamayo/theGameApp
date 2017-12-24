@@ -48,7 +48,7 @@ export default class CreateGame extends Component {
             <input type="text" className="form-control" ref = {ref => this.gameName = ref}  placeholder="Ex. The lost scientist" />
             <a className='btn btn-success' style={saveGameNameButtonStyle} onClick={this.saveGameName}>Save name</a>
           </div>
-          <h3>2. Add a stage to your game</h3>
+          <h3>2. Add more details to your game</h3>
           <div>
             <Link to={'/update-game/' + this.state.gameName}><div className='btn btn-success' style={stageButtonStyles}>Edit game</div></Link>
           </div>

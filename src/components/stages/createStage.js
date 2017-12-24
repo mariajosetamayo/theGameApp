@@ -9,8 +9,9 @@ export class CreateStage extends Component {
   constructor(props){
     super(props);
     this.state={
-      error: false
-    }
+      error: false,
+      submittedStage: false
+    };
     this.onCreateStageClick = this.onCreateStageClick.bind(this);
   }
 
@@ -20,8 +21,15 @@ export class CreateStage extends Component {
     if(!this.stageName.value || !this.stageContent.value || this.stageInstructions.value || this.stageAnswer.value){
       this.setState({
         error: true
-      })
+      });
     }
+
+    if(this.stageName.value || this.stageContent.value || this.stageInstructions.value || this.stageAnswer.value){
+      this.setState({
+        submittedStage: true
+      });
+    }
+
     const stage = {
       name: this.stageName.value,
       content: this.stageContent.value,
@@ -29,13 +37,18 @@ export class CreateStage extends Component {
       answer: this.stageAnswer.value,
       timeUntilOneTenthDeduction: this.stageTimeDeduction.value,
       requirements: this.stageRequirements.value,
-      percentageDeductionPerWrongAnswer: this.stageWrongAnswerDeduction.value
-    }
+      percentageDeductionPerWrongAnswer: this.stageWrongAnswerDeduction.value,
+      createdThroughGame: this.props.createdThroughGame
+    };
 
-    console.log('stage values', stage)
     this.props.dispatch(
       actions.createStage(stage)
-    )
+    );
+    if(this.props.updateGamePage === 'true'){
+      this.props.dispatch(
+        actions.updatingGameBoolean(this.props.gameName)
+      )
+    }
   }
 
   renderAlert() {
@@ -47,21 +60,20 @@ export class CreateStage extends Component {
   }
 
   render() {
-
     //TODO: transfer styles to individual css files.
-    console.log('THESE ARE THE PROPS IN CREATE STAGE', this.props)
     const formStyles={
       marginTop: '20%',
       marginBottom: '15%'
-    }
+    };
 
     const saveButtonStyle={
       marginTop: '5px'
-    }
+    };
 
     const textareaStyle={
       width: '100%'
-    }
+    };
+
     return (
       <form style={formStyles}>
         <div className="form-group">

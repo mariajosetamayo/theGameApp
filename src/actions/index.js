@@ -10,6 +10,9 @@ import {AUTH_USER,
         FETCH_SEARCH_USER_RESULTS,
         FETCH_SEARCH_GAME_RESULTS,
         FETCH_SEARCH_STAGE_RESULTS,
+        UPDATING_GAME,
+        FETCH_GAME_DETAILS,
+        SAVE_STAGE_SUMMARY,
         CREATE_GAME_INSTANCE_AND_REDIRECT,
         CLEAR_TEAM,
         ADD_USER_TO_TEAM,
@@ -19,6 +22,20 @@ import {AUTH_USER,
         UPDATE_STAGE_INSTANCE} from './types';
 
 const ROOT_URL = 'http://localhost:1515';
+
+export function fetchStageDetailsById (id) {
+  return function (dispatch) {
+    axios.get(
+      `${ROOT_URL}/readStageById/${id}`,
+      {headers: {authorization: localStorage.getItem('token')}}
+    ).then(response => {
+      dispatch({
+        type: FETCH_STAGE_DETAILS,
+        payload: response.data,
+      });
+    })
+  };
+};
 
 export function checkHint (hints, time, stageInstance) {
   return function (dispatch) {
@@ -284,10 +301,7 @@ export function createStage(stage) {
   const authorizationHeaders= {headers: {authorization: localStorage.getItem('token')}}
   return function(dispatch) {
     axios.post(`${ROOT_URL}/createStage`,
-      {name: stage.name, content: stage.content, instructions: stage.instructions,
-        answer: stage.answer, percentageDeductionPerWrongAnswer: stage.percentageDeductionPerWrongAnswer,
-        requirements: stage.requirements, timeUntilOneTenthDeduction: stage.timeUntilOneTenthDeduction
-      },
+      stage,
       authorizationHeaders)
     .then(response => {
       // console.log('this is the repsonse for create stage', response)
@@ -295,7 +309,7 @@ export function createStage(stage) {
         type: FETCHED_STAGE_DETAILS,
         payload: response.data
       });
-      browserHistory.push('/stage/' + response.data.name);
+      browserHistory.push('/edit-stage/' + response.data.name);
     })
   }
 }
@@ -367,4 +381,52 @@ export function createGame(name){
       console.log('this is the response from hint', response)
     })
   }
+}
+
+export function updatingGameBoolean(name) {
+  console.log('NAME IN ACTIONS', name)
+  return {
+    type: UPDATING_GAME,
+    payload: {
+      updateGame:true,
+      nameOfGame: name
+    },
+  };
+}
+
+export function fetchGameDetails(name) {
+  const authorizationHeaders= {headers: {authorization: localStorage.getItem('token')}}
+  return function(dispatch) {
+    axios.get(`${ROOT_URL}/readGame/` + name, {
+      headers: { authorization: localStorage.getItem('token')}
+    })
+    .then(response => {
+      console.log('this is the repsonse for create stage', response)
+      dispatch({
+        type: FETCH_GAME_DETAILS,
+        payload: response.data
+      });
+    })
+  }
+}
+
+export function editGameDetails(name, updatedDetails) {
+  const authorizationHeaders= {headers: {authorization: localStorage.getItem('token')}}
+  return function(dispatch) {
+    axios.put(`${ROOT_URL}/updateGame/` + name,
+      {name: updatedDetails.name, description: updatedDetails.description, requirements: updatedDetails.requirements},
+        authorizationHeaders
+    )
+    .then(response => {
+      console.log('RESPONSE FOR UPDATING STAGE', response)
+    })
+  }
+}
+
+export function saveStageSummary(summary) {
+  console.log('NAME IN ACTIONS', summary)
+  return {
+    type: SAVE_STAGE_SUMMARY,
+    payload: summary
+  };
 }
